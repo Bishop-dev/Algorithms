@@ -66,7 +66,33 @@ public class Chapter04MaxCounters {
      */
 
     public int[] solution(int n, int[] a) {
-        return null;
+        int[] result = new int[n];
+        int max = 0;
+        int maxCounter = 0;
+        for (int i = 0; i < a.length; i++) {
+            int value = a[i];
+            if (value >= 1 && value <= n) {
+                // increase
+                int oldValue = result[value - 1];
+                if (result[value - 1] < maxCounter) {
+                    result[value - 1] = maxCounter;
+                    oldValue = maxCounter;
+                }
+                result[value - 1] = ++oldValue;
+                if (oldValue > max) {
+                    max = oldValue;
+                }
+            } else if (value == n + 1) {
+                // max value
+                maxCounter = max;
+            }
+        }
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] < maxCounter) {
+                result[i] = maxCounter;
+            }
+        }
+        return result;
     }
 
 }
