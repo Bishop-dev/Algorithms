@@ -51,13 +51,17 @@ public class Chapter05GenomicRangeQuery {
      */
 
     public int[] solution(String s, int[] p, int[] q) {
+        return null;
+    }
+
+    public int[] solutionSlow(String s, int[] p, int[] q) {
         int[] result = new int[p.length];
         for (int i = 0; i < p.length; i++) {
             String str = null;
             if (p[i] == q[i]) {
                 str = s.charAt(p[i]) + "";
             } else {
-                str = s.substring(p[i], q[i]);
+                str = s.substring(p[i], q[i] + 1);
             }
             int min = Integer.MAX_VALUE;
             for (Character character: str.toCharArray()) {
