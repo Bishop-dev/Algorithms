@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by Sashko on 8/24/16.
  */
@@ -51,7 +53,37 @@ public class Chapter05GenomicRangeQuery {
      */
 
     public int[] solution(String s, int[] p, int[] q) {
-        return null;
+        int[][] matrix = new int[3][s.length() + 1];
+        for (int i = 0; i < s.length(); i++) {
+            int a = 0, c = 0, g = 0;
+            char ch = s.charAt(i);
+            if (ch == 'A') {
+                a = 1;
+            } else if (ch == 'C') {
+                c = 2;
+            } else if (ch == 'G') {
+                g = 3;
+            }
+            matrix[0][i + 1] = matrix[0][i] + a;
+            matrix[1][i + 1] = matrix[1][i] + c;
+            matrix[2][i + 1] = matrix[2][i] + g;
+        }
+        int[] result = new int[p.length];
+        for (int i = 0; i < p.length; i++) {
+            int from = p[i];
+            int to = q[i] + 1;
+            if (matrix[0][to] - matrix[0][from] > 0) {
+                result[i] = 1;
+            } else if (matrix[1][to] - matrix[1][from] > 0) {
+                result[i] = 2;
+            } else if(matrix[2][to] - matrix[2][from] > 0) {
+                result[i] = 3;
+            } else {
+                result[i] = 4;
+            }
+
+        }
+        return result;
     }
 
     public int[] solutionSlow(String s, int[] p, int[] q) {
